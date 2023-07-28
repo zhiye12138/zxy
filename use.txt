@@ -1,0 +1,25 @@
+1、首先创建maven webapp框架
+    在pom.xml文件中导入spring-webmvc，javax.servlet-api
+
+
+2、springmvc适用于表现层开发（controller）
+    定义@Contreller bean
+    设置当前操作的访问路径@RequestMapping("/save")
+    设置响应体@ResponseBody
+3、告诉spring用mvc
+    新建config目录下SpringMvcConfig.class
+    设置为配置类@Configuration
+    告诉扫描包@Componentscan加载对应的bean
+4、定义一个servlet容器的启动配置类ServletContainersInitConfig，在里面配置spring的配置
+    继承 AbstractDispatcherServletInitializer
+    生成三个方法
+        加载springmvc容器配置
+        createServletApplicationContext(),
+            new对象 AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
+            告诉配置文件 ctx.register(SpringMvcConfig.class);
+        设置哪些请求为springmvc处理
+        getServletMappings(),
+            全部交由springmvc return new String['/'];
+        加载spring容器配置
+        createRootApplicationContext()
+            一般return null
